@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PokemonService } from 'src/pokemon/pokemon.service';
 import * as pokedex from '../../data/pokedexbase.json';
-import _ from 'lodash';
 import * as bluebird from 'bluebird';
 
 @Injectable()
@@ -91,7 +90,7 @@ export class _2022310979320001_addFullPokedexToDatabase {
         return this.pokemonService.create(toCreate);
       }
     } catch (error) {
-      console.log(error);
+      return error.message;
     }
   }
 }

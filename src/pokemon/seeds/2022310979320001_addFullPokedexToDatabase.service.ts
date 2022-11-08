@@ -89,7 +89,7 @@ export class _2022310979320001_addFullPokedexToDatabase {
         return this.pokemonService.create(toCreate);
       }
     } catch (e) {
-      console.log(e);
+      return e.message;
     }
   }
 }

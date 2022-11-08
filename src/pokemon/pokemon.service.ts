@@ -39,7 +39,7 @@ export class PokemonService {
           return this.dataSource.query(removeLastComma);
         });
     } catch (error) {
-      console.log(error);
+      return error.message;
     }
   }
 

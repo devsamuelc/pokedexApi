@@ -16,7 +16,7 @@ export class SeederService {
     try {
       return this._2022310979320001_addFullPokedexToDatabase.up();
     } catch (err) {
-      console.log(err.message);
+      return err.message;
     }
   }
 }
