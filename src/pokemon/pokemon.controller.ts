@@ -1,34 +1,33 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Req, Query, Controller, Get, Param } from '@nestjs/common';
+import {
+  FindAllPokemonDto,
+  FindAllPokemonResponseDto,
+} from './dto/find-all-pokemon.dto';
 import { PokemonService } from './pokemon.service';
-import { CreatePokemonDto } from './dto/create-pokemon.dto';
-import { UpdatePokemonDto } from './dto/update-pokemon.dto';
+import { QueryFilterDto } from 'src/utils/query-filter.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Pokemon')
 @Controller('pokemon')
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
-  @Post()
-  create(@Body() createPokemonDto: CreatePokemonDto) {
-    return this.pokemonService.create(createPokemonDto);
+  @Get()
+  findBySearchParams(
+    @Req() req: any,
+    @Query() query: FindAllPokemonDto,
+    @Param() filter: QueryFilterDto,
+  ): Promise<FindAllPokemonResponseDto> {
+    return this.pokemonService.findBySearchParams(query);
   }
 
-  @Get()
-  findAll() {
+  @Get('all')
+  findAll(): Promise<FindAllPokemonResponseDto> {
     return this.pokemonService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePokemonDto: UpdatePokemonDto) {
-    return this.pokemonService.update(+id, updatePokemonDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.pokemonService.remove(+id);
+  @Get(':number')
+  findByPokedexNumber(@Param('number') number: number) {
+    return this.pokemonService.findByPokedexNumber(+number);
   }
 }

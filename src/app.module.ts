@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AppService } from './app.service';
 import { PokemonModule } from './pokemon/pokemon.module';
+import { SeedsModule } from './database/seeds/seeds.module';
 
 @Module({
   imports: [
     PokemonModule,
+    SeedsModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -20,7 +20,7 @@ import { PokemonModule } from './pokemon/pokemon.module';
       entities: ['dist/**/entities/*.entity.js'],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
