@@ -4,7 +4,6 @@ import {
   FindAllPokemonResponseDto,
 } from './dto/find-all-pokemon.dto';
 import { PokemonService } from './pokemon.service';
-import { QueryFilterDto } from 'src/utils/query-filter.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Pokemon')
@@ -13,21 +12,10 @@ export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 
   @Get()
-  findBySearchParams(
+  find(
     @Req() req: any,
-    @Query() query: FindAllPokemonDto,
-    @Param() filter: QueryFilterDto,
+    @Query() findPokemonDto: FindAllPokemonDto,
   ): Promise<FindAllPokemonResponseDto> {
-    return this.pokemonService.findBySearchParams(query);
-  }
-
-  @Get('all')
-  findAll(): Promise<FindAllPokemonResponseDto> {
-    return this.pokemonService.findAll();
-  }
-
-  @Get(':number')
-  findByPokedexNumber(@Param('number') number: number) {
-    return this.pokemonService.findByPokedexNumber(+number);
+    return this.pokemonService.find(findPokemonDto);
   }
 }
