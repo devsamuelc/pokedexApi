@@ -1,4 +1,4 @@
-import { Req, Query, Controller, Get, Param } from '@nestjs/common';
+import { Req, Query, Controller, Get } from '@nestjs/common';
 import {
   FindAllPokemonDto,
   FindAllPokemonResponseDto,
